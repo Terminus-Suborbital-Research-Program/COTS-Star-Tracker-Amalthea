@@ -21,7 +21,7 @@ import star_tracker.ground as ground
 #############################################################
 #USER-INPUT VARS
 #############################################################
-path_to_images = "path/to/your/images" #full path to the directory where the images to be processed are
+path_to_images = r"C:\Users\epasc\OneDrive\Pictures\Desktop\Terminus\COTS-Star-Tracker\external\JPG" #full path to the directory where the images to be processed are
 num_images = 7 #default of 7
 
 

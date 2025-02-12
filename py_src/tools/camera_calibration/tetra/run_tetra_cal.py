@@ -27,10 +27,10 @@ from tetra3_Cal import Tetra3
 #USER INPUT
 ################################
 db_name = 'test_db'
-path_to_images = ''
+path_to_images = r'C:\Users\epasc\OneDrive\Pictures\Desktop\Terminus\COTS-Star-Tracker\external\JPG'
 image_file_extension = '.jpg'
-darkframe_filename = ''
-estimated_full_angle_fov = 20
+darkframe_filename = 'autogen_darkframe'
+estimated_full_angle_fov = 32 # FoV (x,y): 32.34193580608777, 24.397826957559573
 verbose = True
 
 

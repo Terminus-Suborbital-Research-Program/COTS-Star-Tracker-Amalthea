@@ -1,0 +1,13 @@
+Metadata-Version: 2.2
+Name: COTS_star_tracker
+Version: 1.1
+Summary: Open-source framework intended to allow inexperienced users to use COTS cameras and computers to estimate the inertial attitude of the captured images.
+Home-page: https://github.com/nasa/COTS-Star-Tracker
+Author: NASA
+Author-email: samuel.m.pedrotty@nasa.gov
+License: BSD 3-Clause
+Dynamic: author
+Dynamic: author-email
+Dynamic: home-page
+Dynamic: license
+Dynamic: summary
