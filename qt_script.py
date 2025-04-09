@@ -13,6 +13,9 @@ from enum import Enum, auto
 from pathlib import Path
 
 class Main_window(QMainWindow):
+    
+
+
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Camera United Multi-tool")
@@ -29,7 +32,6 @@ class Main_window(QMainWindow):
         else:
             self.pixmap = QPixmap()
         self.image_label.setPixmap(self.pixmap) 
-
         
         # Thread Setup
         self.cam_streamer_thread = CameraStreamer()
@@ -60,7 +62,7 @@ class Main_window(QMainWindow):
 
         self.setup_graphics()
 
-        self.cam_streamer_thread.start()
+        # self.cam_streamer_thread.start()
         self.cam_streamer_thread.frame_num_update.emit(self.file_count)
 
     def update_script_text(self, stdout):
@@ -124,6 +126,7 @@ class Main_window(QMainWindow):
         if new_dir:
             self.cam_streamer_thread.file_save_dir_update.emit(new_dir)
             self.cam_streamer_thread.frame_num_update.emit(self.file_count)
+            self.script_manager.config['image_path'] = new_dir
 
     def closeEvent(self, event):
         self.cam_streamer_thread.stop()
@@ -380,28 +383,30 @@ class ScriptManager(QObject):
 
         self.script_state = ScriptType.TETRA
 
-        
-
         self.config = {
-            'image_path': r'C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\external\New_trip', #r'C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\external\New_trip' # test'
+            'image_path': r'external\New_trip', #r'C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\external\New_trip' # test'
             'tetra_script_path': r'py_src\tools\camera_calibration\tetra\run_tetra_cal_scripting.py',
-            'star_catalog_creator_path':  r'C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\py_src\tools\star_catalog_creator_scripting.py',
-            'image_proccessing_script_path': r'C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\examples\process_image_set_scripting.py',
+            'star_catalog_creator_path':  r'py_src\tools\star_catalog_creator_scripting.py',
+            'image_proccessing_script_path': r'examples\process_image_set_scripting.py',
             'graphics': "False",
             'image_file_extension': '.jpg', # .tiff
-            'calibration_file_name': 'default',
-            'data_path': r'C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\data'
+            'calibration_file_name': 'success',
+            'data_path': r'\data'
         }
     
     def run_script(self):
         # This should be passed in from the GUI where these values can be customzied in later implementations
+
+        #for item in self.config:
+        #    print(f"{item}: {self.config[item]}")
+            
+        
+        #print(self.config.values)
+
         self.solves = []
         self.solve_rate = ""
         self.rms = ""
         self.tetra_cal()
-
-       
-    
 
     def script_output(self):
         data = self.script_process.readAllStandardOutput()
@@ -434,10 +439,10 @@ class ScriptManager(QObject):
                                 self.script_state = ScriptType.STARCAT
                                 time.sleep(1.0)
                                 self.script_end()
-
                                 self.star_cat()
                             else:
                                 self.script_process.write('no\n'.encode())
+                                self.script_end()
                                 self.tetra_cal()
 
                             
