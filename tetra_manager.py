@@ -28,13 +28,13 @@ class ScriptManager(QObject):
         
 
         self.config = {
-            'image_path': r'C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\external\New_trip', 
+            'image_path': r'C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\external\TripBest_NormFilter_c', 
             'tetra_script_path': r'py_src\tools\camera_calibration\tetra\run_tetra_cal_scripting.py',
             'star_catalog_creator_path':  r'C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\py_src\tools\star_catalog_creator_scripting.py',
             'image_proccessing_script_path': r'C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\examples\process_image_set_scripting.py',
             'graphics': "False",
-            'image_file_extension': '.jpg', # .tiff
-            'calibration_file_name': 'default',
+            'image_file_extension': '.tiff', # .tiff
+            'calibration_file_name': 'newest',
             'data_path': r'C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\data'
         }
     
@@ -83,6 +83,7 @@ class ScriptManager(QObject):
 
                                 self.star_cat()
                             else:
+                                self.script_end()
                                 self.script_process.write('no\n'.encode())
                                 self.tetra_cal()
 

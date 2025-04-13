@@ -62,7 +62,7 @@ class Main_window(QMainWindow):
 
         self.setup_graphics()
 
-        # self.cam_streamer_thread.start()
+        self.cam_streamer_thread.start()
         self.cam_streamer_thread.frame_num_update.emit(self.file_count)
 
     def update_script_text(self, stdout):
