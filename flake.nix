@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "COTS Infrared Star Tracker for Spacecraft Systems.";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -25,7 +25,8 @@
       in {
         #
         devShells.default = pkgs.mkShell {
-          buildInputs = [ (pkgs.python312.withPackages (ps: allPythonLibs)) ];
+          buildInputs =
+            [ (pkgs.python312.withPackages (ps: allPythonLibs)) vimbax-lib ];
         };
       });
 }
