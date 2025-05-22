@@ -88,7 +88,7 @@ def cam_write(handler, cam_state, times):
         if t_time in cam_state.value["range"]:
             frame = handler.get_image()
             file_path = f"{SD_PATH}/{t_time}.tiff"
-            print(f"Saving to: {file_path}") 
+            print(f"Saving to: {file_path}")
             cv2.imwrite(file_path,frame)
         
         # Break if we can't finish taking pictures in this time range
