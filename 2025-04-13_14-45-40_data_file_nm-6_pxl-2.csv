@@ -1,6 +1,0 @@
-CPU,RAM,image name,image solve time (s),qs,qv0,qv1,qv2,time
-4.9,60.7,C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\data\bright-310ms_24d1g_50ict_0bl_0d80gam_set14_13.tiff,186.72325253486633,-0.35328493135799144,-0.19558054912999864,0.23423292735822848,0.8843488801477516,1744573431.9764621
-5.9,59.9,C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\data\bright-310ms_24d1g_50ict_0bl_0d80gam_set15_20.tiff,80.34889793395996,999,999,999,999,1744573512.3325455
-7.8,58.9,C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\data\bright-310ms_24d1g_50ict_0bl_0d80gam_set5_1.tiff,9.737495183944702,999,999,999,999,1744573522.0760412
-10.9,59.0,C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\data\bright-310ms_24d1g_50ict_0bl_0d80gam_set5_5.tiff,2.9768314361572266,999,999,999,999,1744573525.05922
-6.7,59.7,C:\Users\Ethan\Desktop\COTS-Star-Tracker-Amalthea\data\bright-310ms_24d1g_50ict_0bl_0d80gam_set5_7.tiff,15.835609197616577,0.7311430674935357,-0.4404673599343606,-0.40868010473809074,-0.3231081733411593,1744573540.9007971
