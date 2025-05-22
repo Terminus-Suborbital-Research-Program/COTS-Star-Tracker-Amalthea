@@ -111,11 +111,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1747860698,
-        "narHash": "sha256-yEfg1lzY28wIANiLLEH50zOTAMrLsd/ugvIWt0G4n6Y=",
+        "lastModified": 1747872049,
+        "narHash": "sha256-5dZLlEzZ8M8A3t5BwwKG1BKVQBpIckejyGT4+kuoSfo=",
         "owner": "Terminus-Suborbital-Research-Program",
         "repo": "vimba-x",
-        "rev": "fb8ee78ee398372609f6d5f732c1c3477a887275",
+        "rev": "61f8dd96313a67b911f748da09ea74221d1e5c02",
         "type": "github"
       },
       "original": {

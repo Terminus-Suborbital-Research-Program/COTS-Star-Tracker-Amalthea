@@ -25,7 +25,7 @@
       in {
         #
         devShells.default = pkgs.mkShell {
-          buildInputs = [ (pkgs.python311.withPackages (ps: allPythonLibs)) ];
+          buildInputs = [ (pkgs.python312.withPackages (ps: allPythonLibs)) ];
         };
       });
 }
