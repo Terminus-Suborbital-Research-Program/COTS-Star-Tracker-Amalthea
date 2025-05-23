@@ -6,29 +6,6 @@ from queue import Queue
 
 from aenum import Enum, NoAlias
 
-
-### Implement with CamState as a struct or touple of all state specific data
-# (Time limit (range[-1]), range, )
-
-class CamState(Enum):
-    _settings_ = NoAlias
-
-    FIRST_SET = {
-        "images": 50,
-        "range": range(120,180)
-    }
-    SECOND_SET = {
-        "images": 80,
-        "range": range(180, 240)
-    }
-    THIRD_SET = {
-        "images": 80,
-        "range": range(240, 600)
-    }
-    END = {
-
-    }
-
 def get_camera() -> Camera:
     with VmbSystem.get_instance() as vmb:
         cams = vmb.get_all_cameras()
@@ -66,38 +43,14 @@ class Handler:
 
         cam.queue_frame(frame)
 
-    
-
-# POWER_ON_T_ESTIMATE_SEC = -120                            frame = self.handler.get_image()
-
-
 SD_PATH = "temp"
 
 
-def get_t_time(times):
-    return int((time.time() + times[1])  - times[0])
+def cam_write(handler):
+    frame = handler.get_image()
+    file_path = f"{SD_PATH}/{time.time()}.tiff"
+    cv2.imwrite(file_path,frame)
 
-def cam_write(handler, cam_state, times):
-    for i in range (cam_state.value["images"]):
-        t_time = get_t_time(times)
-        # Hold until we get to the new time range if we finished the previous set early
-        while t_time < cam_state.value["range"][0]:
-            time.sleep(1)
-            t_time = get_t_time(times)
-        # Take a picture
-        if t_time in cam_state.value["range"]:
-            frame = handler.get_image()
-            file_path = f"{SD_PATH}/{t_time}.tiff"
-            cv2.imwrite(file_path,frame)
-        
-        # Break if we can't finish taking pictures in this time range
-        elif t_time > cam_state.value["range"][-1]:
-            break
-
-
-
-
-        
 
 with VmbSystem.get_instance():
     with get_camera() as cam:
@@ -107,28 +60,28 @@ with VmbSystem.get_instance():
         # cam.DeviceLinkThroughputLimit.set(cam.DeviceLinkThroughputLimit.get_range()[1])
         #cam.set_pixel_format(PixelFormat.Mono12p)
         cam.start_streaming(handler=handler, buffer_count=3)
-        ## Testing
+        ## Testing - benchmark time to take an image
         start_t_time = time.time()
-        t_time_init = 120 #sys.argv[1]
+        frame = handler.get_image()
+        file_path = f"{SD_PATH}/benchmark.tiff"
+        cv2.imwrite(file_path,frame)
+        capture_offset = time.time() - start_t_time
+        ##
 
-        times = (start_t_time, t_time_init)
+        # Testing
+        capture_interval = 1 - capture_offset
 
-        state = CamState.FIRST_SET
-
+        #capture_interval = sys.argv[1] - capture_offset
         while True:
-            match state:
-                case CamState.FIRST_SET:
-                    cam_write(handler, state, times)
-                    state = CamState.SECOND_SET
-                case CamState.SECOND_SET:
-                    cam_write(handler, state, times)
-                    state = CamState.THIRD_SET
-                case CamState.THIRD_SET:
-                    cam_write(handler, state, times)
-                    state = CamState.END
-                case CamState.END:
-                    print("Done")
-                    sys.exit(0)
+            cam_write(handler)
+            time.sleep(capture_interval)
+
+        
+
+
+
+
+
 
         
 
