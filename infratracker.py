@@ -18,7 +18,7 @@ def get_camera() -> Camera:
 
         return cams[0]
 
-opencv_display_format = PixelFormat.Mono8 #PixelFormat.Bgr8
+opencv_display_format = PixelFormat.Mono12p #PixelFormat.Bgr8
 
 
 class Handler:
@@ -49,6 +49,7 @@ SD_PATH = "temp" # sys.argv[1]
 
 def cam_write(handler):
     frame = handler.get_image()
+    print("Got here")
     file_path = f"{SD_PATH}/{time.time()}.tiff"
     cv2.imwrite(file_path,frame)
 
@@ -56,11 +57,10 @@ def cam_write(handler):
 # Directory to save in 
 with VmbSystem.get_instance():
     with get_camera() as cam:
-        handler = Handler()
         cam.ExposureAuto.set('Off')
         cam.GainAuto.set('Off')
         # cam.DeviceLinkThroughputLimit.set(cam.DeviceLinkThroughputLimit.get_range()[1])
-        cam.set_pixel_format(PixelFormat.Mono8)
+        cam.set_pixel_format(PixelFormat.Mono12p)
         cam.start_streaming(handler=handler, buffer_count=3)
         ## Testing - benchmark time to take an image
         start_time = time.time()
