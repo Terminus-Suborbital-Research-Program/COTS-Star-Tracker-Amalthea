@@ -6,6 +6,7 @@ from queue import Queue
 
 from aenum import Enum, NoAlias
 
+
 def get_camera() -> Camera:
     with VmbSystem.get_instance() as vmb:
         cams = vmb.get_all_cameras()
@@ -43,7 +44,7 @@ class Handler:
 
         cam.queue_frame(frame)
 
-SD_PATH = "temp"
+SD_PATH = temp # sys.argv[1]
 
 
 def cam_write(handler):
@@ -51,7 +52,8 @@ def cam_write(handler):
     file_path = f"{SD_PATH}/{time.time()}.tiff"
     cv2.imwrite(file_path,frame)
 
-
+# Time between picutre takes
+# Directory to save in 
 with VmbSystem.get_instance():
     with get_camera() as cam:
         handler = Handler()
@@ -61,17 +63,17 @@ with VmbSystem.get_instance():
         #cam.set_pixel_format(PixelFormat.Mono12p)
         cam.start_streaming(handler=handler, buffer_count=3)
         ## Testing - benchmark time to take an image
-        start_t_time = time.time()
-        frame = handler.get_image()
-        file_path = f"{SD_PATH}/benchmark.tiff"
-        cv2.imwrite(file_path,frame)
-        capture_offset = time.time() - start_t_time
+        start_time = time.time()
+        cam_write(handler)
+        capture_offset = time.time() - start_time
         ##
 
         # Testing
-        capture_interval = 1 - capture_offset
+        # Capture interval- seconds floating
+        capture_interval = 1.0 - capture_offset
+        # capture_interval = sys.argv[2] - capture_offset
 
-        #capture_interval = sys.argv[1] - capture_offset
+
         while True:
             cam_write(handler)
             time.sleep(capture_interval)
