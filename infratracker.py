@@ -18,7 +18,7 @@ def get_camera() -> Camera:
 
         return cams[0]
 
-opencv_display_format = PixelFormat.Bgr8
+opencv_display_format = PixelFormat.Mono12 #PixelFormat.Bgr8
 
 
 class Handler:
@@ -44,7 +44,7 @@ class Handler:
 
         cam.queue_frame(frame)
 
-SD_PATH = "temp" # sys.argv[1]
+SD_PATH = sys.argv[1]
 
 
 def cam_write(handler):
@@ -60,33 +60,17 @@ with VmbSystem.get_instance():
         cam.ExposureAuto.set('Off')
         cam.GainAuto.set('Off')
         # cam.DeviceLinkThroughputLimit.set(cam.DeviceLinkThroughputLimit.get_range()[1])
-        #cam.set_pixel_format(PixelFormat.Mono12p)
+        cam.set_pixel_format(PixelFormat.Mono12)
         cam.start_streaming(handler=handler, buffer_count=3)
         ## Testing - benchmark time to take an image
         start_time = time.time()
         cam_write(handler)
         capture_offset = time.time() - start_time
         ##
-
-        # Testing
         # Capture interval- seconds floating
-        capture_interval = 1.0 - capture_offset
-        # capture_interval = sys.argv[2] - capture_offset
-
-        ## Testing
-        idx = 0
         while True:
             cam_write(handler)
             time.sleep(capture_interval)
-            idx +=1
-            print(idx)
-            if idx > 10:
-                break
-                
-sys.exit(1)
-
-        
-
 
 
 
