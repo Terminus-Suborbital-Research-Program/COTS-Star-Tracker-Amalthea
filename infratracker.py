@@ -73,10 +73,14 @@ with VmbSystem.get_instance():
         capture_interval = 1.0 - capture_offset
         # capture_interval = sys.argv[2] - capture_offset
 
-
+        ## Testing
+        idx = 0
         while True:
             cam_write(handler)
             time.sleep(capture_interval)
+            idx +=1
+            if idx > 10:
+                break
 
         
 
