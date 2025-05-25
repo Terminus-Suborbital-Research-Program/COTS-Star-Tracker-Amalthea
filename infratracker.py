@@ -79,7 +79,9 @@ with VmbSystem.get_instance():
             cam_write(handler)
             time.sleep(capture_interval)
             idx +=1
+            print(idx)
             if idx > 10:
+                sys.exit(1)
                 break
 
         
