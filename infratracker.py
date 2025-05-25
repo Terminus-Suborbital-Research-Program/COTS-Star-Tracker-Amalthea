@@ -64,9 +64,11 @@ with VmbSystem.get_instance():
         # print(cam.get_pixel_format())
         #cam.set_pixel_format(PixelFormat.Mono12p)
         cam.start_streaming(handler=handler, buffer_count=3)
+        print("Streaming")
         ## Testing - benchmark time to take an image
         start_time = time.time()
         cam_write(handler)
+        print("Writing")
         capture_offset = time.time() - start_time
         ##
         # Capture interval- seconds floating
