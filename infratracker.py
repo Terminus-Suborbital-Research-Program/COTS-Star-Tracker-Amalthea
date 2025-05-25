@@ -18,7 +18,7 @@ def get_camera() -> Camera:
 
         return cams[0]
 
-opencv_display_format = PixelFormat.Mono12p #PixelFormat.Bgr8
+opencv_display_format = PixelFormat.Mono8 #PixelFormat.Bgr8
 
 
 class Handler:
@@ -63,6 +63,7 @@ with VmbSystem.get_instance():
         # cam.DeviceLinkThroughputLimit.set(cam.DeviceLinkThroughputLimit.get_range()[1])
         # print(cam.get_pixel_format())
         #cam.set_pixel_format(PixelFormat.Mono12p)
+        cam.set_pixel_format(PixelFormat.Mono8)
         cam.start_streaming(handler=handler, buffer_count=3)
         print("Streaming")
         ## Testing - benchmark time to take an image
