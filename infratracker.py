@@ -44,7 +44,7 @@ class Handler:
 
         cam.queue_frame(frame)
 
-SD_PATH = sys.argv[1]
+SD_PATH = "temp" # sys.argv[1]
 
 
 def cam_write(handler):
@@ -68,6 +68,9 @@ with VmbSystem.get_instance():
         capture_offset = time.time() - start_time
         ##
         # Capture interval- seconds floating
+        # capture_interval = sys.argv[2] - capture_offset
+
+        capture_interval = 1 - capture_offset
         while True:
             cam_write(handler)
             time.sleep(capture_interval)
