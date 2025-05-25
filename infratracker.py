@@ -61,7 +61,7 @@ with VmbSystem.get_instance():
         cam.ExposureAuto.set('Off')
         cam.GainAuto.set('Off')
         # cam.DeviceLinkThroughputLimit.set(cam.DeviceLinkThroughputLimit.get_range()[1])
-        print(cam.get_pixel_format())
+        # print(cam.get_pixel_format())
         #cam.set_pixel_format(PixelFormat.Mono12p)
         cam.start_streaming(handler=handler, buffer_count=3)
         ## Testing - benchmark time to take an image
