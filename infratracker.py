@@ -49,7 +49,7 @@ SD_PATH = "temp" # sys.argv[1]
 
 def cam_write(handler):
     frame = handler.get_image()
-    print("Got here")
+    print("Frame can be acquired")
     file_path = f"{SD_PATH}/{time.time()}.tiff"
     cv2.imwrite(file_path,frame)
 
@@ -57,6 +57,7 @@ def cam_write(handler):
 # Directory to save in 
 with VmbSystem.get_instance():
     with get_camera() as cam:
+        handler = Handler()
         cam.ExposureAuto.set('Off')
         cam.GainAuto.set('Off')
         # cam.DeviceLinkThroughputLimit.set(cam.DeviceLinkThroughputLimit.get_range()[1])
