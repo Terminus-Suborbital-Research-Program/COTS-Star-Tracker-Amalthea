@@ -44,7 +44,7 @@ class Handler:
 
         cam.queue_frame(frame)
 
-SD_PATH = temp # sys.argv[1]
+SD_PATH = "temp" # sys.argv[1]
 
 
 def cam_write(handler):
