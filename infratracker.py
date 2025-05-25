@@ -49,7 +49,8 @@ SD_PATH = "temp" # sys.argv[1]
 
 def cam_write(handler):
     frame = handler.get_image()
-    file_path = f"{SD_PATH}/{time.time()}.tiff"
+    
+    file_path = f"{SD_PATH}/{str(time.time())}.tiff"
     cv2.imwrite(file_path,frame)
 
 # Time between picutre takes
