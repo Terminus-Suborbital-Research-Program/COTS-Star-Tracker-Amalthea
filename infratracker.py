@@ -55,7 +55,7 @@ def cam_write(handler):
 
 # Time between picutre takes
 # Directory to save in 
-with VmbSystem.get_instance():
+with VmbSystem.get_instance() as vmb:
     with get_camera() as cam:
         cam.set_pixel_format(PixelFormat.Mono12p)
         vmb.enable_log(LOG_CONFIG_WARNING_CONSOLE_ONLY)
