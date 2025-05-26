@@ -57,13 +57,14 @@ def cam_write(handler):
 # Directory to save in 
 with VmbSystem.get_instance():
     with get_camera() as cam:
+        cam.set_pixel_format(PixelFormat.Mono12p)
+
         handler = Handler()
         cam.ExposureAuto.set('Off')
         cam.GainAuto.set('Off')
         # cam.DeviceLinkThroughputLimit.set(cam.DeviceLinkThroughputLimit.get_range()[1])
         # print(cam.get_pixel_format())
         #cam.set_pixel_format(PixelFormat.Mono12p)
-        cam.set_pixel_format(PixelFormat.Mono8)
         cam.start_streaming(handler=handler, buffer_count=3)
         print("Streaming")
         ## Testing - benchmark time to take an image
