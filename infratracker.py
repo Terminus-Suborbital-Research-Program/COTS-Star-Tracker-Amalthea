@@ -44,12 +44,11 @@ class Handler:
 
         cam.queue_frame(frame)
 
-SD_PATH = "temp" # sys.argv[1]
+SD_PATH = sys.argv[1] #"temp" # 
 
 
 def cam_write(handler):
     frame = handler.get_image()
-    print("Frame can be acquired")
     file_path = f"{SD_PATH}/{time.time()}.tiff"
     cv2.imwrite(file_path,frame)
 
@@ -57,27 +56,22 @@ def cam_write(handler):
 # Directory to save in 
 with VmbSystem.get_instance() as vmb:
     with get_camera() as cam:
-        # cam.set_pixel_format(PixelFormat.Mono12p)
+        cam.set_pixel_format(PixelFormat.Mono8)
         
 
         handler = Handler()
         cam.ExposureAuto.set('Off')
         cam.GainAuto.set('Off')
-        # cam.DeviceLinkThroughputLimit.set(cam.DeviceLinkThroughputLimit.get_range()[1])
-        # print(cam.get_pixel_format())
-        #cam.set_pixel_format(PixelFormat.Mono12p)
+
         cam.start_streaming(handler=handler, buffer_count=3)
-        print("Streaming")
         ## Testing - benchmark time to take an image
         start_time = time.time()
         cam_write(handler)
-        print("Writing")
         capture_offset = time.time() - start_time
         ##
         # Capture interval- seconds floating
-        # capture_interval = sys.argv[2] - capture_offset
-
-        capture_interval = 1 - capture_offset
+        capture_interval = sys.argv[2] - capture_offset
+        # capture_interval = 1 - capture_offset
         while True:
             cam_write(handler)
             time.sleep(capture_interval)
