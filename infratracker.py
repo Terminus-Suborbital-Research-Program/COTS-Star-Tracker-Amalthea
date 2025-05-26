@@ -57,16 +57,7 @@ def cam_write(handler):
 # Directory to save in 
 with VmbSystem.get_instance() as vmb:
     with get_camera() as cam:
-        cam.set_pixel_format(PixelFormat.Mono12p)
-        vmb.enable_log(LOG_CONFIG_WARNING_CONSOLE_ONLY)
-
-        log = Log.get_instance()
-        log.critical('Critical, visible')
-        log.error('Error, visible')
-        log.warning('Warning , visible')
-        log.info('Info, invisible')
-        log.trace('Trace, invisible')
-
+        # cam.set_pixel_format(PixelFormat.Mono12p)
         
 
         handler = Handler()
@@ -87,7 +78,6 @@ with VmbSystem.get_instance() as vmb:
         # capture_interval = sys.argv[2] - capture_offset
 
         capture_interval = 1 - capture_offset
-        vmb.disable_log()
         while True:
             cam_write(handler)
             time.sleep(capture_interval)
