@@ -58,6 +58,16 @@ def cam_write(handler):
 with VmbSystem.get_instance():
     with get_camera() as cam:
         cam.set_pixel_format(PixelFormat.Mono12p)
+        vmb.enable_log(LOG_CONFIG_WARNING_CONSOLE_ONLY)
+
+        log = Log.get_instance()
+        log.critical('Critical, visible')
+        log.error('Error, visible')
+        log.warning('Warning , visible')
+        log.info('Info, invisible')
+        log.trace('Trace, invisible')
+
+        
 
         handler = Handler()
         cam.ExposureAuto.set('Off')
@@ -77,6 +87,7 @@ with VmbSystem.get_instance():
         # capture_interval = sys.argv[2] - capture_offset
 
         capture_interval = 1 - capture_offset
+        vmb.disable_log()
         while True:
             cam_write(handler)
             time.sleep(capture_interval)
