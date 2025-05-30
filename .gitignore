@@ -1,4 +1,5 @@
 data/
+result
 *.aux
 *.csv
 *.DS_Store

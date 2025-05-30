@@ -18,12 +18,15 @@
         # Vmbpy lib
         vmbpy = vimbax.packages.${system}.vmbpy;
 
+        infratracker = pkgs.callPackage ./infratracker.nix { inherit vmbpy; };
+
         # Additional libraries
         additionalLibraries = with pkgs.python312Packages; [ aenum numpy ];
 
         allPythonLibs = [ vmbpy ] ++ additionalLibraries;
       in {
-        #
+        packages = { inherit infratracker; };
+
         devShells.default = pkgs.mkShell {
           buildInputs =
             [ (pkgs.python312.withPackages (ps: allPythonLibs)) vimbax-lib ];
