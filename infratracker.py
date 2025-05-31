@@ -58,7 +58,7 @@ def cam_write(handler):
 # Directory to save in 
 with VmbSystem.get_instance() as vmb:
     with get_camera() as cam:
-        cam.set_pixel_format(PixelFormat.Mono8)
+        # cam.set_pixel_format(PixelFormat.Mono8)
         
 
         handler = Handler()
