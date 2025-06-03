@@ -72,7 +72,7 @@ with VmbSystem.get_instance() as vmb:
         capture_offset = time.time() - start_time
         ##
         # Capture interval- seconds floating
-        capture_interval = sys.argv[2] - capture_offset
+        capture_interval = float(sys.argv[2]) - capture_offset
         # capture_interval = 1 - capture_offset
         while True:
             cam_write(handler)
