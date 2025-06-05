@@ -20,7 +20,7 @@ def get_camera() -> Camera:
 
         return cams[0]
 
-opencv_display_format = PixelFormat.Mono8 #PixelFormat.Bgr8
+opencv_display_format = PixelFormat.Mono16 #PixelFormat.Bgr8
 
 
 class Handler:
@@ -34,19 +34,13 @@ class Handler:
         if frame.get_status() == FrameStatus.Complete:
             print('{} acquired {}'.format(cam, frame), flush=True)
 
-            # Convert frame if it is not already the correct format
-            if frame.get_pixel_format() == opencv_display_format:
-                display = frame
-            else:
-                # This creates a copy of the frame. The original `frame` object can be requeued
-                # safely while `display` is used
-                display = frame.convert_pixel_format(opencv_display_format)
+            display = frame.convert_pixel_format(opencv_display_format)
 
             self.display_queue.put(display.as_opencv_image(), True)
 
         cam.queue_frame(frame)
 
-SD_PATH = sys.argv[1] #"temp" # 
+SD_PATH = sys.argv[1]
 
 
 def cam_write(handler):
@@ -54,26 +48,22 @@ def cam_write(handler):
     file_path = f"{SD_PATH}/{time.time()}.tiff"
     cv2.imwrite(file_path,frame)
 
-# Time between picutre takes
-# Directory to save in 
 with VmbSystem.get_instance() as vmb:
     with get_camera() as cam:
-        # cam.set_pixel_format(PixelFormat.Mono8)
-        
+        # cam.set_pixel_format(PixelFormat.Mono8)   
+        # cam.ExposureAuto.set('Off')
+        # cam.GainAuto.set('Off')     
 
         handler = Handler()
-        cam.ExposureAuto.set('Off')
-        cam.GainAuto.set('Off')
-
+        
         cam.start_streaming(handler=handler, buffer_count=3)
-        ## Testing - benchmark time to take an image
+        ## benchmark time to take an image
         start_time = time.time()
         cam_write(handler)
         capture_offset = time.time() - start_time
-        ##
+        
         # Capture interval- seconds floating
         capture_interval = float(sys.argv[2]) - capture_offset
-        # capture_interval = 1 - capture_offset
         while True:
             cam_write(handler)
             time.sleep(capture_interval)
