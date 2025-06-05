@@ -20,7 +20,7 @@ def get_camera() -> Camera:
 
         return cams[0]
 
-opencv_display_format = PixelFormat.Mono16 #PixelFormat.Bgr8
+opencv_display_format = PixelFormat.Mono16
 
 
 class Handler:
@@ -62,7 +62,7 @@ with VmbSystem.get_instance() as vmb:
         cam_write(handler)
         capture_offset = time.time() - start_time
         
-        # Capture interval- seconds floating
+        # Capture interval- seconds to take a single image
         capture_interval = float(sys.argv[2]) - capture_offset
         while True:
             cam_write(handler)
