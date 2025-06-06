@@ -50,7 +50,7 @@ def cam_write(handler):
 
 with VmbSystem.get_instance() as vmb:
     with get_camera() as cam:
-        # cam.set_pixel_format(PixelFormat.Mono12)   
+        cam.set_pixel_format(PixelFormat.Mono12p)   
         # cam.ExposureAuto.set('Off')
         # cam.GainAuto.set('Off')     
 
