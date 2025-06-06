@@ -4,6 +4,7 @@ result
 *.csv
 *.DS_Store
 *.html
+*.tiff
 *.idea
 *.json
 *.log

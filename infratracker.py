@@ -20,7 +20,6 @@ def get_camera() -> Camera:
 
         return cams[0]
 
-opencv_display_format = PixelFormat.Mono16
 
 
 class Handler:
@@ -34,9 +33,7 @@ class Handler:
         if frame.get_status() == FrameStatus.Complete:
             print('{} acquired {}'.format(cam, frame), flush=True)
 
-            display = frame.convert_pixel_format(opencv_display_format)
-
-            self.display_queue.put(display.as_opencv_image(), True)
+            self.display_queue.put(frame.as_opencv_image(), True)
 
         cam.queue_frame(frame)
 
